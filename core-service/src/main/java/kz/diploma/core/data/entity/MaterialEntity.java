@@ -18,13 +18,16 @@ public class MaterialEntity {
     @Column(name = "id")
     private Long id;
 
-    @JoinColumn(name = "course_id")
-    private Long courseId;
+    @JoinColumn(name = "module_id")
+    private Long moduleId;
 
     @Column(name = "title")
     private String title;
 
-    @Column(name = "content", columnDefinition = "TEXT")
+    @Column(name = "step")
+    private String step;
+
+    @Column(name = "content")
     private String content;
 
     @Column(name = "type")

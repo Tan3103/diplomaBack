@@ -9,7 +9,7 @@ public interface CourseService {
 
     List<CourseEntity> findAll(String title, String description);
 
-    CourseEntity findById(Long id);
+    CourseDto findById(Long id);
 
     void save(CourseDto courseDto);
 

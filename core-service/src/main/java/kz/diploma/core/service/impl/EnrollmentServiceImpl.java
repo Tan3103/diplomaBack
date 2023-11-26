@@ -1,6 +1,8 @@
 package kz.diploma.core.service.impl;
 
+import kz.diploma.core.data.dto.EnrollmentDto;
 import kz.diploma.core.data.entity.EnrollmentEntity;
+import kz.diploma.core.data.mapper.EnrollmentMapper;
 import kz.diploma.core.service.EnrollmentService;
 import kz.diploma.core.repository.EnrollmentRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -16,6 +21,7 @@ import java.util.List;
 public class EnrollmentServiceImpl implements EnrollmentService {
 
     private final EnrollmentRepository enrollmentRepository;
+    private final EnrollmentMapper enrollmentMapper;
 
     @Override
     public List<EnrollmentEntity> findAll() {
@@ -29,8 +35,18 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
     @Override
     @Transactional
-    public void save(EnrollmentEntity course) {
-        enrollmentRepository.save(course);
+    public EnrollmentDto save(EnrollmentDto course) {
+        EnrollmentEntity entity = enrollmentMapper.toEntity(course);
+        entity.setEnrollmentDate(LocalDate.now());
+
+
+        return enrollmentMapper.toDto(enrollmentRepository.save(entity));
+    }
+
+    @Override
+    public Boolean check(Long userId, Long courseId) {
+        Optional<EnrollmentEntity> entity = enrollmentRepository.findByCourseIdAndUserId(courseId, userId);
+        return entity.isPresent();
     }
 
     @Override

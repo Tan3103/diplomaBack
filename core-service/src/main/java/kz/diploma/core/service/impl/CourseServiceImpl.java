@@ -1,11 +1,12 @@
 package kz.diploma.core.service.impl;
 
 import kz.diploma.core.data.dto.CourseDto;
+import kz.diploma.core.data.dto.ModuleDto;
 import kz.diploma.core.data.entity.CourseEntity;
 import kz.diploma.core.data.mapper.CourseMapper;
 import kz.diploma.core.service.CourseService;
 import kz.diploma.core.repository.CourseRepository;
-import kz.diploma.core.service.MaterialService;
+import kz.diploma.core.service.ModuleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
     private final CourseMapper courseMapper;
-    private final MaterialService materialService;
+    private final ModuleService moduleService;
 
     @Override
     public List<CourseEntity> findAll(String title, String description) {
@@ -37,8 +38,16 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public CourseEntity findById(Long id) {
-        return courseRepository.findById(id).orElse(null);
+    public CourseDto findById(Long id) {
+        CourseDto courseDto = courseMapper.toDto(courseRepository.findById(id).orElse(null));
+
+        if (courseDto != null) {
+            List<ModuleDto> moduleDtoList = moduleService.findAllByCourseId(courseDto.getId());
+
+            courseDto.setModuleList(moduleDtoList);
+            courseDto.setModuleCount(moduleDtoList.size());
+        }
+        return courseDto;
     }
 
     @Override
@@ -50,10 +59,10 @@ public class CourseServiceImpl implements CourseService {
 
         CourseEntity entity = courseRepository.save(courseEntity);
 
-        if (!courseDto.getMaterialList().isEmpty()) {
-            courseDto.getMaterialList().forEach(materialDto -> {
-                materialDto.setCourseId(entity.getId());
-                materialService.save(materialDto);
+        if (!courseDto.getModuleList().isEmpty()) {
+            courseDto.getModuleList().forEach(moduleDto -> {
+                moduleDto.setCourseId(entity.getId());
+                moduleService.save(moduleDto);
             });
         }
     }

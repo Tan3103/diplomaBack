@@ -5,15 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MaterialDto {
+public class ModuleDto {
     private Long id;
-    private Long moduleId;
+    private Long courseId;
     private String title;
-    private String step;
-    private String content;
-    private String type;
+    private String description;
+    private List<MaterialDto> materialList;
 }

@@ -5,13 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class EnrollmentDto {
-    private Long id;
-    private Date enrollmentDate;
+    private Long userId;
+    private Long courseId;
 }

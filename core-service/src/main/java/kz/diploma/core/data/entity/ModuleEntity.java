@@ -6,27 +6,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.util.Date;
-
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "enrollments")
-public class EnrollmentEntity {
+@Table(name = "modules")
+public class ModuleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @JoinColumn(name = "user_id")
-    private Long userId;
-
     @JoinColumn(name = "course_id")
     private Long courseId;
 
-    @Column(name = "enrollment_date")
-    private LocalDate enrollmentDate;
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "description")
+    private String description;
 }

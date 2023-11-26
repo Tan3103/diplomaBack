@@ -13,9 +13,12 @@ import java.util.List;
 @AllArgsConstructor
 public class CourseDto {
     private Long id;
-    private Long courseId;
     private String title;
     private String description;
     private String language;
-    private List<MaterialDto> materialList;
+    private String price;
+    private List<ModuleDto> moduleList;
+    private Integer moduleCount;
+    private Integer materialCount;
+    private Integer quizCount;
 }

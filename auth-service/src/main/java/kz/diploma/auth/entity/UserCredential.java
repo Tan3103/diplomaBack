@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class UserCredential {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "first_name")
     private String firstname;
@@ -35,5 +35,5 @@ public class UserCredential {
     @Column(name = "profile_picture")
     private String picture;
 
-    private String role;
+//    private String role;
 }

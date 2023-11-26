@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -24,6 +26,7 @@ public class AuthService {
 
     public AuthResponse generateToken(String username) {
         return AuthResponse.builder()
+                .userId(Objects.requireNonNull(repository.findByEmail(username).orElse(null)).getId())
                 .token(jwtService.generateToken(username))
                 .build();
     }

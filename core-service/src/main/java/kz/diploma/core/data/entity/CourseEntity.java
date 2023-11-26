@@ -27,18 +27,15 @@ public class CourseEntity {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "price")
+    private String price;
+
     @Column(name = "language")
     private String language;
-
-//    @JoinColumn(name = "user_id")
-//    private Long userId;
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
     @Column(name = "modified_date")
     private LocalDateTime modifiedDate;
-
-//    @Column(name = "thumbnail")
-//    private String thumbnail;
 }

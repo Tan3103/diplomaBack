@@ -1,9 +1,11 @@
 package kz.diploma.core.controller;
 
 import kz.diploma.core.data.dto.CourseDto;
+import kz.diploma.core.data.dto.EnrollmentDto;
 import kz.diploma.core.data.entity.CourseEntity;
 import kz.diploma.core.service.CourseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +24,8 @@ public class CourseController {
     }
 
     @GetMapping("/{id}")
-    public CourseEntity getCourseById(@PathVariable Long id) {
-        return courseService.findById(id);
+    public ResponseEntity<?> getCourseById(@PathVariable Long id) {
+        return ResponseEntity.ok(courseService.findById(id));
     }
 
     @PostMapping
